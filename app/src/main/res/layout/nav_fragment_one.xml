@@ -1,0 +1,13 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/srl_inquiry"
+    tools:context="com.frio.steven.decodetomorrow.NavigationDrawer.NavFragmentOne">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_inquiry"/>
+
+</android.support.v4.widget.SwipeRefreshLayout>
