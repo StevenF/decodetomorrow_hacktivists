@@ -16,6 +16,8 @@ public class StringConfig {
 
     public static final String URL_CREATE_INQUIRY = "api/house/createInquiry";
 
+    public static final String URL_SHOW_INQUIRY = "api/house/inquiryShow";
+
     public static final String LOG_TAG = "Aboitiz";
 
     public static final String SHAREDPREF_NAME = "UserInfo";

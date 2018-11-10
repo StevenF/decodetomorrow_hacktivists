@@ -55,8 +55,12 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
 
         btn_dialogFragmentInquire = view.findViewById(R.id.btn_dialogFragmentInquire);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        sharedPreferences = getContext().getSharedPreferences(StringConfig.SHAREDPREF_NAME, 0);
         userId = sharedPreferences.getString(StringConfig.SHAREDPREF_USERKEY, "");
+
+
+        Log.d(StringConfig.LOG_TAG, "sharedPrefValue : " + userId);
 
 
 
@@ -80,6 +84,7 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         btn_dialogFragmentInquire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 volleyCreateInquiry(strId, strName, strBedroomCount, strFloorArea, strLotArea);
             }
         });
@@ -91,7 +96,7 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
         Map<String, String> mapCreateInquiry = new HashMap<String, String>();
-        mapCreateInquiry.put("userId", userId);
+        mapCreateInquiry.put("userID", userId);
         mapCreateInquiry.put("name", strName);
         mapCreateInquiry.put("bedroomCount", strBedroomCount);
         mapCreateInquiry.put("floorArea", strFloorArea);
