@@ -1,14 +1,30 @@
 package com.frio.steven.decodetomorrow;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.frio.steven.decodetomorrow.Util.StringConfig;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -16,9 +32,10 @@ import android.widget.TextView;
  */
 public class DialogFragmentInquiryDetails extends DialogFragment {
 
-    String strId, strName, strBedroomCount, strFloorArea, strLotArea;
+    String strId, strName, strBedroomCount, strFloorArea, strLotArea, userId;
     TextView tv_inquiryName, tv_inquiryBedrooomCount, tv_inquiryFloorArea, tv_inquiryLotArea;
     Button btn_dialogFragmentInquire;
+    SharedPreferences sharedPreferences;
 
     public DialogFragmentInquiryDetails() {
         // Required empty public constructor
@@ -37,6 +54,9 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         tv_inquiryLotArea = view.findViewById(R.id.tv_inquiryLotArea);
 
         btn_dialogFragmentInquire = view.findViewById(R.id.btn_dialogFragmentInquire);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        userId = sharedPreferences.getString(StringConfig.SHAREDPREF_USERKEY, "");
 
 
 
@@ -60,11 +80,40 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         btn_dialogFragmentInquire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                volleyCreateInquiry(strId, strName, strBedroomCount, strFloorArea, strLotArea);
             }
         });
 
         return view;
+    }
+
+    private void volleyCreateInquiry(String strId, String strName, String strBedroomCount, String strFloorArea, String strLotArea){
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        Map<String, String> mapCreateInquiry = new HashMap<String, String>();
+        mapCreateInquiry.put("userId", userId);
+        mapCreateInquiry.put("name", strName);
+        mapCreateInquiry.put("bedroomCount", strBedroomCount);
+        mapCreateInquiry.put("floorArea", strFloorArea);
+        mapCreateInquiry.put("lotArea", strLotArea);
+        mapCreateInquiry.put("status", "waiting for response");
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, StringConfig.BASE_URL + StringConfig.URL_CREATE_INQUIRY, new JSONObject(mapCreateInquiry), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(StringConfig.LOG_TAG, "inquiryResponse : " + response.toString());
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
     }
 
 }

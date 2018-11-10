@@ -1,6 +1,7 @@
 package com.frio.steven.decodetomorrow;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText tet_loginEmail, tet_loginPassword;
     Button btn_login,  btn_signMeUp;
 
+    SharedPreferences sharedPreferences;
+
     Validators validators;
 
     @Override
@@ -48,6 +51,9 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.btn_login);
         btn_signMeUp = findViewById(R.id.btn_signMeUp);
+
+        sharedPreferences = this.getSharedPreferences(StringConfig.SHAREDPREF_NAME, 0);
+
 
         validators = new Validators();
 
@@ -121,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.d(StringConfig.LOG_TAG, "loginResponseMessage : " + jsonResponseMessage);
                         Log.d(StringConfig.LOG_TAG, "loginResponseId : " + jsonResponseId);
+
+                        sharedPreferences.edit().putString(StringConfig.SHAREDPREF_USERKEY, jsonResponseId).apply();
 
                         Toast.makeText(LoginActivity.this, "Welcome.", Toast.LENGTH_SHORT);
 

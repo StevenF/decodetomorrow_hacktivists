@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DecodeTomorrow.iml" filepath="$PROJECT_DIR$/DecodeTomorrow.iml" />
+      <module fileurl="file://C:\Users\JMM\Desktop\ABOITIZ_CHALLENGE\decodetomorrow_hacktivists\DecodeTomorrow.iml" filepath="C:\Users\JMM\Desktop\ABOITIZ_CHALLENGE\decodetomorrow_hacktivists\DecodeTomorrow.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\JMM\Desktop\ABOITIZ_CHALLENGE\decodetomorrow_hacktivists\app\app.iml" filepath="C:\Users\JMM\Desktop\ABOITIZ_CHALLENGE\decodetomorrow_hacktivists\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/decodetomorrow_hacktivists.iml" filepath="$PROJECT_DIR$/decodetomorrow_hacktivists.iml" />
     </modules>
   </component>
 </project>
