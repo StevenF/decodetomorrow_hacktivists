@@ -2,10 +2,12 @@ package com.frio.steven.decodetomorrow.NavigationDrawer;
 
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.frio.steven.decodetomorrow.DialogFragmentScheduleTrip;
+import com.frio.steven.decodetomorrow.NotificationFragment;
 import com.frio.steven.decodetomorrow.R;
 import com.frio.steven.decodetomorrow.RecyclerAdapter.RAdapterShowInquiries;
 import com.frio.steven.decodetomorrow.RecyclerParser.RParserShowInquiries;
@@ -48,6 +51,7 @@ public class NavFragmentTwo extends Fragment {
     LinearLayoutManager linearLayoutManager;
     RAdapterShowInquiries rAdapterShowInquiries;
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String userId;
 
     public NavFragmentTwo() {
@@ -66,6 +70,7 @@ public class NavFragmentTwo extends Fragment {
 
         sharedPreferences = getContext().getSharedPreferences(StringConfig.SHAREDPREF_NAME, 0);
         userId = sharedPreferences.getString(StringConfig.SHAREDPREF_USERKEY, "");
+        editor = sharedPreferences.edit();
 
         srl_inquiryShow = view.findViewById(R.id.srl_inquiryShow);
         rv_inquiryShow = view.findViewById(R.id.rv_inquiryShow);
@@ -96,7 +101,6 @@ public class NavFragmentTwo extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
 
-
         srl_inquiryShow.setRefreshing(true);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(StringConfig.BASE_URL + StringConfig.URL_SHOW_INQUIRY+ "/" + userId, new Response.Listener<JSONArray>() {
@@ -107,7 +111,10 @@ public class NavFragmentTwo extends Fragment {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonObject = response.getJSONObject(i);
                         String id = String.valueOf(jsonObject.getInt("id"));
-                        Log.d(StringConfig.LOG_TAG, "showInquiriesId : " + id);
+                        Log.d(StringConfig.LOG_TAG, "showInquiriesId:p1 : " + id);
+                        editor.putString(StringConfig.SHAREDPREF_INQUIRY_ID, id);
+                        editor.commit();
+
 
                         String userId = jsonObject.getString("userID");
                         Log.d(StringConfig.LOG_TAG, "showInquiriesUserId : " + userId);
@@ -171,14 +178,27 @@ public class NavFragmentTwo extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("tripId", id);
 
+                Log.d(StringConfig.LOG_TAG, "showInquiriesId:p3 : " + id);
+
                 dialogFragmentScheduleTrip.setArguments(bundle);
 
                 dialogFragmentScheduleTrip.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
                 dialogFragmentScheduleTrip.show(fragmentManager, "DialogFragmentScheduleTrip");
 
             }
+        }, new RAdapterShowInquiries.RAdapterShowNotif() {
+            @Override
+            public void OnItemClick(String id) {
+                NotificationFragment notificationFragment = new NotificationFragment();
+                //FragmentTransaction fragmentTransaction = getContext() beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("userId", id);
+                notificationFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.navcontainer, notificationFragment).commit();
+                //fragmentTransaction.commit();
+            }
         });
-        rv_inquiryShow.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         rv_inquiryShow.setAdapter(rAdapterShowInquiries);
     }
 

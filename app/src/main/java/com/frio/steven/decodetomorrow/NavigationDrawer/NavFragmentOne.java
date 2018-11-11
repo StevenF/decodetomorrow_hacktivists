@@ -183,7 +183,9 @@ public class NavFragmentOne extends Fragment {
             }
         });
 
+/*
         rv_inquiry.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+*/
         rv_inquiry.setAdapter(rAdapterInquiry);
     }
 

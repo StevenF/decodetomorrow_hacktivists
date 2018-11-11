@@ -2,6 +2,7 @@ package com.frio.steven.decodetomorrow;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,8 @@ import com.frio.steven.decodetomorrow.NavigationDrawer.NavFragmentTwo;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +44,24 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //auto-generated code
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
+
+
+        //Snackbar.make(NavigationActivity.this, "Press back again to exit.", Snackbar.LENGTH_SHORT).show();
+
+
+
     }
 
     @Override
@@ -68,8 +79,13 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_notif) {
+            NotificationFragment notificationFragment = new NotificationFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.navcontainer, notificationFragment);
+            fragmentTransaction.commit();
+
+            //return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -116,16 +132,18 @@ public class NavigationActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.navcontainer, navFragmentFive);
             fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_six) {
+        }/* else if (id == R.id.nav_six) {
 
             NavFragmentSix navFragmentSix = new NavFragmentSix();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.navcontainer, navFragmentSix);
             fragmentTransaction.commit();
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

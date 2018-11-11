@@ -6,22 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_one"
-            android:title="Nav One" />
+            android:title="Home"
+            android:icon="@mipmap/ic_home"/>
         <item
             android:id="@+id/nav_two"
-            android:title="Nav Two" />
+            android:title="My Inquiries"
+            android:icon="@mipmap/ic_inquiries"/>
         <item
             android:id="@+id/nav_three"
-            android:title="Nav Three" />
+            android:title="Payment"
+            android:icon="@mipmap/ic_payment"/>
         <item
             android:id="@+id/nav_four"
-            android:title="Nav Four" />
+            android:title="Construction"
+            android:icon="@mipmap/ic_construction"/>
         <item
             android:id="@+id/nav_five"
-            android:title="Nav Five" />
-        <item
+            android:title="Customer Service"
+            android:icon="@mipmap/ic_customer"/>
+      <!--  <item
             android:id="@+id/nav_six"
-            android:title="Nav Six" />
+            android:title="Nav Six" />-->
     </group>
 
 

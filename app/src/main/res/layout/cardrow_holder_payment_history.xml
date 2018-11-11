@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:text="XXXXXX"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tet_paymentAmount"/>
+
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textStyle="italic"
+                android:text="XXXXXX"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tet_paymentDate"/>
+
+
+
+            <TextView
+                android:textStyle="italic"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="XXXXXX"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tet_paymentTime"/>
+
+
+
+            <TextView
+                android:visibility="gone"
+                android:textStyle="italic"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="XXXXXX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tet_paymentPenalty"/>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

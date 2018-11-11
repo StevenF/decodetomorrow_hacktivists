@@ -4,6 +4,7 @@ package com.frio.steven.decodetomorrow;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,6 +55,8 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         tv_inquiryFloorArea = view.findViewById(R.id.tv_inquiryFloorArea);
         tv_inquiryLotArea = view.findViewById(R.id.tv_inquiryLotArea);
 
+        getDialog().setTitle("Details");
+
         btn_dialogFragmentInquire = view.findViewById(R.id.btn_dialogFragmentInquire);
 
 
@@ -77,9 +81,9 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
         getDialog().setTitle(strName);
 
         tv_inquiryName.setText(strName);
-        tv_inquiryBedrooomCount.setText(strBedroomCount);
-        tv_inquiryFloorArea.setText(strFloorArea);
-        tv_inquiryLotArea.setText(strLotArea);
+        tv_inquiryBedrooomCount.setText("Number of Rooms: " + strBedroomCount);
+        tv_inquiryFloorArea.setText("Floor Area: "+strFloorArea);
+        tv_inquiryLotArea.setText("Lot Area: "+ strLotArea);
 
         btn_dialogFragmentInquire.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +111,8 @@ public class DialogFragmentInquiryDetails extends DialogFragment {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(StringConfig.LOG_TAG, "inquiryResponse : " + response.toString());
-
+                getDialog().dismiss();
+                Toast.makeText(getContext(),"Inquiry Sent. Just wait for someone to contact you.",Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {

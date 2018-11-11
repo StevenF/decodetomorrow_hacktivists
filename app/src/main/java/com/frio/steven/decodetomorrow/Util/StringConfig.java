@@ -18,11 +18,23 @@ public class StringConfig {
 
     public static final String URL_SHOW_INQUIRY = "api/house/inquiryShow";
 
+    public static final String URL_SCHEDULE_TRIP = "api/house/setTripSchedule";
+
+    public static final String URL_SUBMIT_DECISION = "api/house/createDecision";
+
+    public static final String URL_PAYMENT_HISTORY = "api/house/paymentShow/";
+
+    public static final String URL_CONSTRUCTION_UPDATE = "api/house/getConstructionUpdate/";
+
+    public static final String URL_CREATE_FEEDBACKS = "api/house/createFeedbacks";
+
     public static final String LOG_TAG = "Aboitiz";
 
     public static final String SHAREDPREF_NAME = "UserInfo";
 
     public static final String SHAREDPREF_USERKEY = "userId";
+
+    public static final String SHAREDPREF_INQUIRY_ID ="inquiry_id";
 
 
 }

@@ -3,6 +3,7 @@ package com.frio.steven.decodetomorrow;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -10,15 +11,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.frio.steven.decodetomorrow.Util.StringConfig;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -30,6 +42,8 @@ public class DialogFragmentScheduleTrip extends DialogFragment {
     String tripId;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
+    Button btn_scheduleTrip;
+    SharedPreferences sharedPreferences;
 
     public DialogFragmentScheduleTrip() {
         // Required empty public constructor
@@ -44,6 +58,7 @@ public class DialogFragmentScheduleTrip extends DialogFragment {
 
         et_datePicker = view.findViewById(R.id.et_datePicker);
         et_timePicker = view.findViewById(R.id.et_timePicker);
+        btn_scheduleTrip = view.findViewById(R.id.btn_scheduleTrip);
 
         Bundle bundle = getArguments();
 
@@ -100,13 +115,51 @@ public class DialogFragmentScheduleTrip extends DialogFragment {
             }
         });
 
+        btn_scheduleTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                volleyUpdateTripSchedule();
+            }
+        });
+
         return view;
+
     }
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         et_datePicker.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void volleyUpdateTripSchedule(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        sharedPreferences = getContext().getSharedPreferences(StringConfig.SHAREDPREF_NAME, 0);
+        String userID = sharedPreferences.getString(StringConfig.SHAREDPREF_USERKEY, "");
+
+        Map<String, String> mapScheduleTrip = new HashMap<String, String>();
+        mapScheduleTrip.put("userID", userID);
+        mapScheduleTrip.put("inquiryID", tripId);
+        mapScheduleTrip.put("date", et_datePicker.getText().toString());
+        mapScheduleTrip.put("time", et_timePicker.getText().toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(StringConfig.BASE_URL + StringConfig.URL_SCHEDULE_TRIP, new JSONObject(mapScheduleTrip), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(StringConfig.LOG_TAG, "tripResponse : " + response.toString());
+                Toast.makeText(getContext(), "Schedule updated.", Toast.LENGTH_SHORT).show();
+                dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
     }
 
 }

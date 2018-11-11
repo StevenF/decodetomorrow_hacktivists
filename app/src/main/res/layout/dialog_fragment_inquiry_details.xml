@@ -8,34 +8,53 @@
     tools:context="com.frio.steven.decodetomorrow.DialogFragmentInquiryDetails">
 
     <TextView
+        android:text="XXXXX"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_inquiryName"
         android:gravity="center"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"/>
+
     <TextView
+        android:text="XXXXX"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/tv_inquiryBedroomCount"
-        android:gravity="center"/>
+        android:gravity="left"/>
 
     <TextView
+        android:text="XXXXX"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/tv_inquiryFloorArea"
-        android:gravity="center"/>
+        android:gravity="left"/>
 
     <TextView
+        android:text="XXXXX"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/tv_inquiryLotArea"
-        android:gravity="center"/>
+        android:gravity="left"/>
 
     <Button
+        android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="Inquire"
+        android:background="@color/colorAccent"
         android:id="@+id/btn_dialogFragmentInquire"/>
 
 
